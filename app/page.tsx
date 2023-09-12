@@ -1,8 +1,39 @@
+import { ModeToggle } from '@/components/mode-toggle'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import { SearchIcon } from 'lucide-react'
 import Image from 'next/image'
+import { title } from 'process'
+import { Fragment } from 'react'
+
+const header = [
+  {
+    id: 1,
+    title: "ORIGINAL",
+    url: "original",
+  },
+  {
+    id: 2,
+    title: "GENRES",
+    url: "genres",
+  },
+  {
+    id: 3,
+    title: "POPULAR",
+    url: "popular",
+  },
+  {
+    id: 4,
+    title: "CANVAS",
+    url: "canvas",
+  }
+
+]
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <>
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
@@ -17,7 +48,7 @@ export default function Home() {
           >
             By{' '}
             <Image
-              src="/vercel.svg"
+              src="/webtoon-logo.png"
               alt="Vercel Logo"
               className="dark:invert"
               width={100}
@@ -57,57 +88,48 @@ export default function Home() {
           </p>
         </a>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an clse interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
     </main>
+    <div className="flex flex-row justify-between items-center px-10">
+      <div className="w-auto h-32 flex flex-row items-center justify-between">
+        <div className="pr-5">
+          <Image
+            src="/webtoon-logo.png"
+            alt="Vercel Logo"
+            className="dark:invert"
+            width={100}
+            height={24}
+            priority
+          />
+        </div>
+        {/* header items */}
+        <div>
+          {header.map((title) => (
+            <Fragment key={title.id}>
+              <a 
+                href={title.url}
+                className="px-5 font-normal text-2xl "
+              >{title.title}</a>
+            </Fragment>
+          ))}
+        </div>
+      </div>
+      <div className="w-auto h-32">
+        <div>
+          <Button variant={"default"} size={"lg"} className="bg-black/80 hover:bg-black text-white">
+            Publish
+          </Button>
+          <Button variant={"outline"} size={"lg"}>
+            Login
+          </Button>
+          <ModeToggle/>
+          <Separator orientation="horizontal"/>
+          <Button variant={"outline"} size={"icon"}>
+            <SearchIcon/>
+          </Button>
+        </div>
+      </div>
+    </div>
+    </>
   )
 }
