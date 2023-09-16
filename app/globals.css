@@ -74,3 +74,57 @@
     @apply bg-background text-foreground;
   }
 }
+.slice-of-life {
+  @apply text-[#9ab710];
+}
+.bg-slice-of-life {
+  @apply bg-[#9ab710];
+}
+.romance {
+  @apply text-[#fd337f];
+}
+.bg-romance {
+  @apply bg-[#fd337f];
+}
+.fantasy {
+  @apply text-[#8b00e9];
+}
+.bg-fantasy {
+  @apply bg-[#8b00e9];
+}
+.drama {
+  @apply text-[#00b19a];
+}
+.bg-drama {
+  @apply bg-[#00b19a];
+}
+.action {
+  @apply text-[#006afa];
+}
+.bg-action {
+  @apply bg-[#006afa];
+}
+.comedy {
+  @apply text-[#eea800];
+}
+.bg-comedy {
+  @apply bg-[#eea800];
+}
+.fanstasy {
+  @apply text-[#8b00e9];
+}
+.bg-fanstasy {
+  @apply bg-[#8b00e9];
+}
+.thriller {
+  @apply text-[#c00355];
+}
+.bg-thriller {
+  @apply bg-[#c00355];
+}
+.supernatural {
+  @apply text-[#7a41e9];
+}
+.bg-supernatural {
+  @apply bg-[#7a41e9];
+}

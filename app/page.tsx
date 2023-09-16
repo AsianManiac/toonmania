@@ -1,38 +1,22 @@
-import { ModeToggle } from '@/components/mode-toggle'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { SearchIcon } from 'lucide-react'
 import Image from 'next/image'
-import { title } from 'process'
-import { Fragment } from 'react'
 
-const header = [
-  {
-    id: 1,
-    title: "ORIGINAL",
-    url: "original",
-  },
-  {
-    id: 2,
-    title: "GENRES",
-    url: "genres",
-  },
-  {
-    id: 3,
-    title: "POPULAR",
-    url: "popular",
-  },
-  {
-    id: 4,
-    title: "CANVAS",
-    url: "canvas",
-  }
+import Header from '@/components/header'
+import CategoryTabs from '@/components/category-tabs'
 
-]
 
 export default function Home() {
   return (
     <>
+    {/* header Item */}
+    <div>
+      <Header/>
+    </div>
+    <div className="h-auto p-2 w-full">
+      <CategoryTabs/>
+
+    </div>
+
+    
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
@@ -90,46 +74,6 @@ export default function Home() {
 
       </div>
     </main>
-    <div className="flex flex-row justify-between items-center px-10">
-      <div className="w-auto h-32 flex flex-row items-center justify-between">
-        <div className="pr-5">
-          <Image
-            src="/webtoon-logo.png"
-            alt="Vercel Logo"
-            className="dark:invert"
-            width={100}
-            height={24}
-            priority
-          />
-        </div>
-        {/* header items */}
-        <div>
-          {header.map((title) => (
-            <Fragment key={title.id}>
-              <a 
-                href={title.url}
-                className="px-5 font-normal text-2xl "
-              >{title.title}</a>
-            </Fragment>
-          ))}
-        </div>
-      </div>
-      <div className="w-auto h-32">
-        <div>
-          <Button variant={"default"} size={"lg"} className="bg-black/80 hover:bg-black text-white">
-            Publish
-          </Button>
-          <Button variant={"outline"} size={"lg"}>
-            Login
-          </Button>
-          <ModeToggle/>
-          <Separator orientation="horizontal"/>
-          <Button variant={"outline"} size={"icon"}>
-            <SearchIcon/>
-          </Button>
-        </div>
-      </div>
-    </div>
     </>
   )
 }
