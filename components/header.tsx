@@ -9,6 +9,15 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 
 import { cn } from "@/lib/utils";
+import Logo from "@/components/Logo";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
+import { User } from "@prisma/client";
+import UserMenu from "./user-menu";
+
+interface HeaderProps{
+    currentUser?: User | null;
+}
 
 const header = [
     {
@@ -34,8 +43,12 @@ const header = [
 
 ]
 
-const Header = () => {
+const Header: React.FC<HeaderProps> = ({ currentUser }) => {
+    // console.log({currentUser})
     const [search, setSearch] = useState("")
+    const registerModal = useRegisterModal()
+    const loginModal = useLoginModal()
+
     const searching = () => {
         return (
             <div>
@@ -45,47 +58,38 @@ const Header = () => {
     }
 
     return ( 
-        <div className="flex flex-row h-[70px] justify-between items-center px-7 bg-white dark:bg-[#212122] z-20">
-            <div className="w-auto flex flex-row items-center justify-between">
-                <div className="pr-2">
-                    <Image
-                        src="/webtoon-logo.png"
-                        alt="Vercel Logo"
-                        className=""
-                        width={50}
-                        height={18}
-                        priority
-                    />
+        <div className="w-full">
+            <div className="flex flex-row h-[70px] border-b-[1px] border-gray-300/70 justify-between items-center px-7 bg-white dark:bg-[#212122] z-20">
+                <div className="w-auto flex flex-row items-center justify-between">
+                    <div className="pr-2">
+                        <Logo/>
+                    </div>
+                    {/* header items */}
+                    <div>
+                    {header.map((title, index) => (
+                        <Fragment key={title.id}>
+                        <Link 
+                            href={`/${title.url}`}
+                            key={index}
+                            className="px-3 font-medium text-sm hover:text-green-400"
+                        >
+                            {title.title}
+                        </Link>
+                        </Fragment>
+                    ))}
+                    </div>
                 </div>
-                {/* header items */}
-                <div>
-                {header.map((title) => (
-                    <Fragment key={title.id}>
-                    <Link 
-                        href={`${title.url}`}
-                        className="px-3 font-medium text-sm hover:text-green-400"
-                    >
-                        {title.title}
-                    </Link>
-                    </Fragment>
-                ))}
+                <div className="w-auto flex flex-row items-center justify-between">
+                    <span className="flex justify-center items-center hover:text-green-500">
+                        <BookOpen size={16} className="mt-1 font-semibold"/>
+                        <Link href={`/`} className="font-semibold text-base "> &nbsp;Creators 101&nbsp;&nbsp;</Link>
+                    </span>
+                    <UserMenu currentUser={currentUser}/>
+                    <ModeToggle/>
+                    <Button size={"icon"} className="mx-1 h-6 w-6 rounded-full bg-transparent border-gray-300 border-2 dark:border-none text-gray-400 hover:bg-gray-100/60">
+                        <SearchIcon size={15}/>
+                    </Button>
                 </div>
-            </div>
-            <div className="w-auto flex flex-row items-center justify-between">
-                <span className="flex justify-center items-center hover:text-green-500">
-                    <BookOpen size={16} className="mt-1 font-semibold"/>
-                    <Link href={`/`} className="font-semibold text-base "> &nbsp;Creators 101&nbsp;&nbsp;</Link>
-                </span>
-                <Button onClick={() => {}} variant={"default"} className={cn("mx-1 px-10 h-7 w-10 bg-black/80 text-xs font-semibold hover:bg-black dark:bg-green-400 hover:dark:bg-green-500 text-white rounded-3xl")}>
-                    Publish
-                </Button>
-                <Button onClick={() => {}} variant={"outline"} className={cn("mx-1 px-10 h-7 w-10 text-xs font-semibold text-[#838383] rounded-3xl")}>
-                    Login
-                </Button>
-                <ModeToggle/>
-                <Button size={"icon"} className="mx-1 h-6 w-6 rounded-full bg-transparent border-gray-300 border-2 dark:border-none text-gray-400 hover:bg-gray-100/60">
-                    <SearchIcon size={15}/>
-                </Button>
             </div>
         </div>
      );

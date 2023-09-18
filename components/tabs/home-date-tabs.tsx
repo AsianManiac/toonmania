@@ -19,7 +19,7 @@ const days = [
         day: "MONDAY",
     },
     {
-        day: "TUEDAY",
+        day: "TUESDAY",
     },
     {
         day: "WEDNESDAY",
@@ -31,7 +31,7 @@ const days = [
         day: "FRIDAY",
     },
     {
-        day: "SARTURDAY",
+        day: "SATURDAY",
     },
     {
         day: "SUNDAY",
@@ -44,16 +44,16 @@ const HomeDateTabs = () => {
         <div>
             <div className=" border-b-[1px] border-gray-300/70 pb-9">
             <Tabs className="">
-                <TabsList className="bg-white w-full h-auto flex items-center justify-center">
-                {days.slice(0, 10).map((day, index) => (
+                <TabsList className="bg-white w-full h-auto flex items-center justify-center p-0">
+                {days.map((day, index) => (
                     <div className="grid gap-2" key={index}>
                     <TabsTrigger
                         key={index}
                         value={day.day}
-                        className={cn("data-[state=active]:border-b-2 data-[state=active]:border-black data-[state=active]:shadow-none data-[state=active]:rounded-none text-sm")}
+                        className={cn("data-[state=active]:text-white py-3 w-[120px] data-[state=active]:bg-[#00dc64] hover:text-[#00dc64] data-[state=active]:rounded-none text-xl text-black font-medium")}
                         onClick={() => setSelectedDay(day.day)} 
                     >
-                        {day.day}
+                        {day.day.slice(0, 3)}
                     </TabsTrigger>
                     </div>
                 ))}
@@ -75,8 +75,8 @@ const HomeDateTabs = () => {
                             author={toons.author}
                             likes={toons.likes}
                             genre={toons.genre}
-                            // longSummary={toons.longSummary}
-                            // shortSummary={toons.shortSummary}
+                            longSummary={toons.longSummary}
+                            shortSummary={toons.shortSummary}
                         />
                     ))}
                     </div>

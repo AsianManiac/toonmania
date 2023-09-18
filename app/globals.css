@@ -110,6 +110,9 @@
 .bg-comedy {
   @apply bg-[#eea800];
 }
+.hm-comedy {
+  @apply bg-[#eea800];
+}
 .fanstasy {
   @apply text-[#8b00e9];
 }
@@ -126,5 +129,14 @@
   @apply text-[#7a41e9];
 }
 .bg-supernatural {
+  @apply bg-[#7a41e9];
+}
+.superhero {
+  @apply text-[#4a20e2];
+}
+.bg-superhero {
+  @apply bg-[#4a20e2];
+}
+.hm-superhero {
   @apply bg-[#7a41e9];
 }

@@ -26,7 +26,7 @@ const slide = [
 
 const NewToons = () => {
     return ( 
-        <div className="w-full">
+        <div className="w-full border-b-[1px] border-gray-300/70 pb-6">
             <div className="flex justify-center flex-col space-x-2 items-center py-7">
                 <div>
                     <p className="font-semibold text-xl pb-8">New TOONS</p>
@@ -50,8 +50,8 @@ const NewToons = () => {
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                <div className="grid grid-cols-5 gap-2">
-                    {homeDateToon.slice(0, 5).map((toons, index) => (
+                <div className="grid lg:grid-cols-5 grid-cols-3 gap-2">
+                    {homeDateToon.slice(51, 56).map((toons, index) => (
                         <Datetoons
                             key={index}
                             image={toons.image}
@@ -59,6 +59,8 @@ const NewToons = () => {
                             genre={toons.genre}
                             author={toons.author}
                             likes={toons.likes}
+                            longSummary={toons.longSummary}
+                            shortSummary={toons.shortSummary}
                         />
                     ))}
                 </div>

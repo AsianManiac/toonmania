@@ -17,84 +17,105 @@ import {
 import { Button } from "@/components/ui/button";
 import MainToon from "@/components/toonmania/main-toon";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HeartPulse, MoonStar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { genres } from "@/data/genre";
+import { homeDateToon } from "@/data/home-webtoon";
+import { HiBookOpen, HiOutlineEmojiHappy, HiOutlineHeart, HiOutlineLibrary, HiOutlineSparkles, HiOutlineSun, HiOutlineSupport, HiSparkles, HiTrendingDown } from "react-icons/hi";
+import { BiKnife, BiNews, BiPlanet } from "react-icons/bi";
+import { AiOutlineGroup } from "react-icons/ai";
+import { IconType } from "react-icons";
 
 interface CategoryProps {
-    title: string;
+    label: string;
     value: string;
+    icon: IconType;
 }
- const category: CategoryProps[] = [
+ export const categories: CategoryProps[] = [
     {
-        title: "FANTASY",
-        value: "fantasy"
+        label: "FANTASY",
+        value: "fantasy",
+        icon: HiOutlineSparkles
     },
     {
-        title: "COMEDY",
-        value: "comedy"
+        label: "COMEDY",
+        value: "comedy",
+        icon: HiOutlineEmojiHappy
     },
     {
-        title: "DRAMA",
-        value: "drama"
+        label: "DRAMA",
+        value: "drama",
+        icon: HiOutlineHeart
     },
     {
-        title: "ACTION",
-        value: "action"
+        label: "ACTION",
+        value: "action",
+        icon:  HiTrendingDown
     },
     {
-        title: "SLICE OF LIFE",
-        value: "slice-of-life"
+        label: "SLICE OF LIFE",
+        value: "slice-of-life",
+        icon: HiOutlineSun
     },
     {
-        title: "ROMANCE",
-        value: "romance"
+        label: "ROMANCE",
+        value: "romance",
+        icon: HeartPulse
     },
     {
-        title: "SUPERHERO",
-        value: "superhero"
+        label: "SUPERHERO",
+        value: "superhero",
+        icon: MoonStar
     },
     {
-        title: "SCI-FI",
-        value: "sci-fi"
+        label: "SCI-FI",
+        value: "sci-fi",
+        icon: BiPlanet
     },
     {
-        title: "THRILLER",
-        value: "thriller"
+        label: "THRILLER",
+        value: "thriller",
+        icon: BiKnife
     },
     {
-        title: "SUPERNATURAL",
-        value: "suppernatural"
+        label: "SUPERNATURAL",
+        value: "suppernatural",
+        icon: HiSparkles
     },
     {
-        title: "MYSTERY",
-        value: "mystery"
+        label: "MYSTERY",
+        value: "mystery",
+        icon: BiNews
     },
     {
-        title: "SPORTS",
-        value: "sports"
+        label: "SPORTS",
+        value: "sports",
+        icon: HiOutlineSupport
     },
     {
-        title: "HISTORICAL",
-        value: "historical"
+        label: "HISTORICAL",
+        value: "historical",
+        icon: HiOutlineLibrary
     },
     {
-        title: "HEARTWARMING",
-        value: "heartwarming"
+        label: "HEARTWARMING",
+        value: "heartwarming",
+        icon: HiOutlineEmojiHappy
     },
     {
-        title: "HORROR",
-        value: "horror"
+        label: "HORROR",
+        value: "horror",
+        icon: AiOutlineGroup
     },
     {
-        title: "INFORMATION",
-        value: "information"
+        label: "INFORMATION",
+        value: "information",
+        icon: HiBookOpen
     },
  ]
 
 const CategoryTabs = () => {
     const [visible, setVisible] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(""); // Track selected category
 
     const changeVisibility = () => {
 
@@ -106,23 +127,19 @@ const CategoryTabs = () => {
         }
     }
   
-    // Filter the data based on the selected category
-    const filteredData = category.filter((item) => item.value === selectedCategory);
-  
     return (
       <>
         <div className="flex flex-col px-24 items-center">
           <Tabs>
             <TabsList className="bg-white">
-              {category.slice(0, 10).map((categoryItem, index) => (
+              {categories.slice(0, 10).map((categoryItem, index) => (
                 <div className="grid gap-2" key={index}>
                   <TabsTrigger
                     key={index}
                     value={categoryItem.value}
                     className={cn("data-[state=active]:border-b-2 data-[state=active]:border-black data-[state=active]:shadow-none data-[state=active]:rounded-none text-sm")}
-                    onClick={() => setSelectedCategory(categoryItem.value)} // Set selected category
                   >
-                    {categoryItem.title}
+                    {categoryItem.label}
                   </TabsTrigger>
                 </div>
               ))}
@@ -135,77 +152,69 @@ const CategoryTabs = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    {category.slice(8, category.length).map((categoryItem, index) => (
-                      <DropdownMenuItem key={index} onClick={() => setSelectedCategory(categoryItem.value)}>
-                        {categoryItem.title}
+                    {categories.slice(8, categories.length).map((categoryItem, index) => (
+                      <DropdownMenuItem key={index}>
+                        {categoryItem.label}
                       </DropdownMenuItem>
                     ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TabsTrigger>
             </TabsList>
-            <TabsContent className="" value={selectedCategory}>
+            <TabsContent className="" value={"Drama"}>
               {/* Display data based on the selected category */}
-              {filteredData.map((item, index) => (
-                <div key={index} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-10 mb-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-10 mb-20">
                     
-                  {genres.map((genre, index) => ( item.value === selectedCategory  ? (
+                  {homeDateToon.map((genre, index) => (
                     
                     <MainToon
-                        image={genre.image}
-                        title={genre.title}
-                        author={genre.author}
-                        likes={genre.likes}
-                        icons={genre.icons}
-                      />
-                    ) : (
-                        <p>No Content</p>
-                    )
-                //   {item.title} - {item.value}
+                      key={index}
+                      image={genre.image}
+                      title={genre.title}
+                      author={genre.author}
+                      likes={genre.likes}
+                      icons={genre.icons}
+                    />
+                //   {item.label} - {item.value}
                       
                   ))}
                 </div>
-              ))}
             </TabsContent>
           </Tabs>
           {visible && (
             <div>
               <Tabs>
                 <TabsList className="bg-white">
-                  {category.slice(8, category.length).map((categoryItem, index) => (
+                  {categories.slice(8, categories.length).map((categoryItem, index) => (
                     <TabsTrigger
                       key={index}
                       value={categoryItem.value}
                       className={cn("data-[state=active]:border-b-2 data-[state=active]:border-black data-[state=active]:shadow-none data-[state=active]:rounded-none text-sm")}
-                      onClick={() => setSelectedCategory(categoryItem.value)}
+                      
                     >
-                      {categoryItem.title}
+                      {categoryItem.label}
                     </TabsTrigger>
                   ))}
                 </TabsList>
-                <TabsContent className="" value={selectedCategory}>
-                    {/* Display data based on the selected category */}
-                    {filteredData.map((item, index) => (
-                        <div key={index} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                            
-                        {genres.map((genre, index) => ( item.value === selectedCategory  ? (
-                            
-                            <MainToon
-                                image={genre.image}
-                                title={genre.title}
-                                author={genre.author}
-                                likes={genre.likes}
-                                icons={genre.icons}
-                            />
-                            ) : (
-                                <p>No Content</p>
-                            )
-                        //   {item.title} - {item.value}
-                            
-                        ))}
-                        </div>
-                    ))}
-                </TabsContent>
+                <TabsContent className="" value={"Drama"}>
+              {/* Display data based on the selected category */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-10 mb-20">
+                    
+                  {homeDateToon.map((genre, index) => (
+                    
+                    <MainToon
+                      key={index}
+                      image={genre.image}
+                      title={genre.title}
+                      author={genre.author}
+                      likes={genre.likes}
+                      icons={genre.icons}
+                    />
+                //   {item.label} - {item.value}
+                      
+                  ))}
+                </div>
+            </TabsContent>
               </Tabs>
             </div>
           )}
