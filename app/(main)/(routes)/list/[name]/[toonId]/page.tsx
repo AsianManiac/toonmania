@@ -5,23 +5,27 @@ import { homeDateToon } from "@/data/home-webtoon";
 import ToonDetailsItem from "./toon-detail-item";
 
 interface IParams {
-    toonId: string;
+  name: string;
+  toonId: string;
 }
 
 const ToonDetails = async ({ params }: { params: IParams }) => {
-    const toon = await homeDateToon
-    if(!toon) {
-        return (
-            <ClientOnly>
-                <EmptyState/>
-            </ClientOnly>
-        )
-    }
-    return ( 
-        <ClientOnly>
-            <ToonDetailsItem/>
-        </ClientOnly>
-     );
-}
- 
+  const toon = await homeDateToon;
+  if (!toon) {
+    return (
+      <ClientOnly>
+        <EmptyState />
+      </ClientOnly>
+    );
+  }
+  return (
+    <ClientOnly>
+      <p className="m-auto h-8">
+        {params.toonId} {params.name}
+      </p>
+      <ToonDetailsItem />
+    </ClientOnly>
+  );
+};
+
 export default ToonDetails;

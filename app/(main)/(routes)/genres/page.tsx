@@ -1,14 +1,19 @@
-import CategoryTabs from "@/components/category-tabs";
+import ClientOnly from "@/components/client";
+import EmptyState from "@/components/empty-state";
+import GenreToons from "@/components/genre-toons";
+import { homeDateToon } from "@/data/home-webtoon";
 
-const GenresPage = () => {
-    return ( 
-        <div className="">
-            <div className="h-auto p-2 w-full z-10 sticky">
-                <CategoryTabs/>
-            </div>
-        
-        </div>
-     );
-}
- 
-export default GenresPage;
+const PopularPage = async () => {
+  const toons = await homeDateToon;
+
+  if (toons.length === 0) {
+    return (
+      <ClientOnly>
+        <EmptyState showReset />
+      </ClientOnly>
+    );
+  }
+  return <GenreToons />;
+};
+
+export default PopularPage;

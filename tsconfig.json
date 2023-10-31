@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(main)/(routes)/days/page.tsx", "app/(main)/(routes)/show/page.jsx", "app/(main)/(routes)/list/[name]/[toonEpisodeId]/page.jsx"],
   "exclude": ["node_modules"]
 }

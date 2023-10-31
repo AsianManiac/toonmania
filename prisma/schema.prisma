@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -13,17 +14,17 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String  @id @default(uuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -32,7 +33,7 @@ model Account {
 }
 
 model User {
-  id             String    @id @default(cuid())
+  id             String    @id @default(uuid())
   name           String?
   email          String?   @unique
   emailVerified  DateTime?
@@ -50,7 +51,7 @@ model User {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
@@ -66,55 +67,91 @@ model VerificationToken {
 }
 
 model Genre {
-  id        String   @id @default(cuid())
-  name      String?
-  Webtoon   Webtoon? @relation(fields: [webtoonId], references: [id])
-  webtoonId String?
+  id      String    @id @default(uuid())
+  name    String    @unique
+  webtoon Webtoon[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Author {
+  id   String @id @default(uuid())
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Define the Webtoon model for storing webtoon information.
 model Webtoon {
-  id            String    @id @default(cuid())
+  id            String        @id @default(uuid())
+  authorId      String?
   title         String
-  description   String
-  coverImage    String // URL to the webtoon's cover image
-  datePublished DateTime  @default(now())
+  description   String?
+  coverImage    String? // URL to the webtoon's cover image
+  isPublished   Boolean       @default(false)
+  datePublished DateTime?
+  updateDay     String?
   // Define the relationships with other tables.
-  authorId      String
-  author        User      @relation(fields: [authorId], references: [id])
-  episodes      Episode[]
-  genres        Genre[] // Many-to-many relationship with genres
+  genreId       String? // Many-to-many relationship with genres
+  userId        String?
+  attachments   Attachments[] // Many-to-many relationship with attachments
   Like          Like[]
+  episodes      Episode[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  genre     Genre?   @relation(fields: [genreId], references: [id])
+
+  @@index([genreId])
 }
 
 // Define the Episode model for storing episode information.
 model Episode {
-  id            String           @id @default(cuid())
+  id            String        @id @default(uuid())
   title         String
-  description   String
-  episodeNumber Int
-  datePublished DateTime         @default(now())
+  description   String?
+  episodeNumber String?
+  position      Int
+  episodeUrl    String?
+  datePublished DateTime?
+  isPublished   Boolean       @default(false)
+  isFree        Boolean?      @default(false)
+  imageUrl      String?
+  orderIndex    Int? // To maintain the order of content within an episode
   // Define the relationships with other tables.
-  webtoon       Webtoon          @relation(fields: [webtoonId], references: [id])
+  webtoon       Webtoon       @relation(fields: [webtoonId], references: [id], onDelete: Cascade)
   webtoonId     String
-  contents      EpisodeContent[]
+  attachments   Attachments[]
   comments      Comment[]
   likes         Like[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([webtoonId])
 }
 
-// Define the EpisodeContent model for storing episode content (images).
-model EpisodeContent {
-  id         String  @id @default(cuid())
-  imageUrl   String
-  orderIndex Int // To maintain the order of content within an episode
-  // Define the relationship with the Episode table.
-  episode    Episode @relation(fields: [episodeId], references: [id])
-  episodeId  String
+model Attachments {
+  id   String @id @default(uuid())
+  name String
+  url  String
+
+  toonId String
+  toon   Webtoon @relation(fields: [toonId], references: [id], onDelete: Cascade)
+
+  episodeId String?
+  episode   Episode? @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Define the Comment model for storing user comments.
 model Comment {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   text      String
   timestamp DateTime @default(now())
   // Define the relationships with other tables.
@@ -122,11 +159,14 @@ model Comment {
   userId    String
   episode   Episode  @relation(fields: [episodeId], references: [id])
   episodeId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Define the Like model for tracking likes on webtoons and episodes.
 model Like {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   // Define the user who liked the webtoon/episode.
   user      User     @relation(fields: [userId], references: [id])
   userId    String
@@ -135,4 +175,7 @@ model Like {
   webtoonId String?
   episode   Episode? @relation(fields: [episodeId], references: [id])
   episodeId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

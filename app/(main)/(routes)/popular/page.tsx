@@ -1,26 +1,33 @@
-import { useSearchParams } from "next/navigation";
+"use client";
+import { heroSlider } from "@/data/slider";
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectFade } from "swiper/modules";
 
-import ClientOnly from "@/components/client";
-import Container from "@/components/container";
-import EmptyState from "@/components/empty-state";
-import ToonGenre from "@/components/navbar/toon-genre";
-import MainToon from "@/components/toonmania/main-toon";
-import { homeDateToon } from "@/data/home-webtoon";
-import GenreToons from "@/components/genre-toons";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import Image from "next/image";
 
-const PopularPage = async () => {
-    const toons = await homeDateToon;
+import DesktopHeroSlider from "@/components/sliders/desktop-hero-slider";
+import MobileHeroSlider from "@/components/sliders/mobile-hero-slider";
+import HomeDateTabs from "@/components/tabs/home-date-tabs";
+import NewToons from "@/components/toonmania/new-toons";
+import HomeGenre from "@/components/toonmania/home-genre";
+import TrendingGenre from "@/components/TrendingGenre";
 
-    if (toons.length === 0) {
-        return (
-            <ClientOnly>
-                <EmptyState showReset/>
-            </ClientOnly>
-        )
-    }
-    return ( 
-        <GenreToons/>
-     );
-}
- 
-export default PopularPage;
+const OriginalsPage = () => {
+  return (
+    <>
+      <DesktopHeroSlider />
+      <MobileHeroSlider />
+
+      <HomeDateTabs />
+      <NewToons />
+      {/* Home Genre */}
+      <HomeGenre />
+      <TrendingGenre />
+    </>
+  );
+};
+
+export default OriginalsPage;

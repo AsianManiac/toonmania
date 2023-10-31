@@ -1,17 +1,14 @@
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
+import React from "react";
+import Link from "next/link";
 
 import { 
     Card, 
     CardContent, 
-    CardFooter, 
-    CardHeader, 
     CardTitle 
 } from "@/components/ui/card"
 
 import { HomeToonsProps } from "@/data/home-webtoon";
-import React from "react";
-import Link from "next/link";
 import makeURLFriendly from "@/helpers/makeurl";
 
 const CanvasSpotItem: React.FC<HomeToonsProps> = ({ ...props }) => {
@@ -25,7 +22,7 @@ const CanvasSpotItem: React.FC<HomeToonsProps> = ({ ...props }) => {
                             src={image}
                             width={100}
                             height={100}
-                            alt={title}
+                            alt={title + genre}
                             className="w-full"
                         />
                         <div className="absolute bottom-4 px-4 text-white">

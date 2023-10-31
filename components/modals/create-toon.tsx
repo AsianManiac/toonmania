@@ -54,6 +54,7 @@ const CreateToonModal = () => {
     })
 
     const genre =watch('genre')
+    const imageUrl =watch('imageUrl')
 
     const setcustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -93,7 +94,7 @@ const CreateToonModal = () => {
             title="Which genre suits your toon best"
             subtitle="Select a genre"
            />
-           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto scrollbar-hide">
+           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto scrollbar-hide">
             {categories.map((item) => (
                 <div key={item.label} className="col-span-1">
                     <GenreInput
@@ -152,9 +153,9 @@ const CreateToonModal = () => {
                     title="Toon Images"
                     subtitle="You are to provide cover images for the toon and the toon image. The cover image will consist of a background image and the body image (You could view the site on desktop to understand). Upload the toon main image which must be of sizes around 221x240 pixels. Slider image for advertisement can be done later!"
                 />
-                <ImageUplaod onChange={function (value: string): void {
-                    throw new Error("Function not implemented.")
-                } } value={""}                    // onChange={} 
+                <ImageUplaod 
+                    value={imageUrl}
+                    onChange={(value) => setcustomValue('imageUrl', value)}             // onChange={} 
                 />
             </div>
         )

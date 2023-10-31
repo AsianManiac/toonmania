@@ -1,23 +1,24 @@
-import ThemeProvider from '@/components/providers/theme-provider'
-import './globals.css'
-import type { Metadata } from 'next'
+import ThemeProvider from "@/components/providers/theme-provider";
+import "./globals.css";
+import type { Metadata } from "next";
 // import { Inter } from 'next/font/google'
 
 // const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ToonMania A Webtoon Viewer',
-  description: 'Toonmania is a webtoon substitute in that it provides free access to webtoon content in good resolution and best performance.',
-}
+  title: "ToonMania A Webtoon Viewer",
+  description:
+    "Toonmania is a webtoon substitute in that it provides free access to webtoon content in good resolution and best performance.",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className='bg-[#f5f5f5] dark:bg-[#212122]'>
+      <body className="bg-[#f5f5f5] dark:bg-[#212122]">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -29,5 +30,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
