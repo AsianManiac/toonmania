@@ -1,13 +1,14 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import qs from "query-string";
+import { cn } from "@/lib/utils";
 
 interface GenreListprops {
   label: String;
   value: String;
   selected?: boolean;
 }
-const GenreList: React.FC<GenreListprops> = ({ label, value, selected }) => {
+const GenreList = ({ label, value, selected }: GenreListprops) => {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -23,16 +24,16 @@ const GenreList: React.FC<GenreListprops> = ({ label, value, selected }) => {
       genre: value,
     };
 
-    // if (params?.get('genre') === value) {
-    //     delete updatedQuery.genre;
-    // }
+    if (params?.get("genre") === value) {
+      delete updatedQuery.genre;
+    }
 
     const url = qs.stringifyUrl(
       {
         url: "/genres/",
         query: updatedQuery,
       },
-      { skipNull: true }
+      { skipNull: true, skipEmptyString: true }
     );
 
     router.push(url);
@@ -41,19 +42,10 @@ const GenreList: React.FC<GenreListprops> = ({ label, value, selected }) => {
   return (
     <div
       onClick={handleClick}
-      className={`
-        flex
-        flex-col
-        items-center
-        justify-center
-        gap-2
-        p-3
-        border-b-2
-        hover:text-neutral-800
-        transition cursor-pointer
-        ${selected ? "border-b-neutral-800" : "border-transparent"}
-        ${selected ? "border-text-neutral-800" : "text-neutral-500"}
-    `}
+      className={cn(
+        "flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer",
+        selected && "border-b-neutral-800 text-neutral-800"
+      )}
     >
       <div className="font-medium text-sm">{label}</div>
     </div>

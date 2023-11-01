@@ -20,6 +20,7 @@ import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { User } from "@prisma/client";
 import UserMenu from "./user-menu";
+import { SearchInput } from "./inputs/search";
 
 interface HeaderProps {
   currentUser?: User | null;
@@ -122,12 +123,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
           </span>
           <UserMenu currentUser={currentUser} />
           <ModeToggle />
-          <Button
-            size={"icon"}
-            className="mx-1 h-6 w-6 rounded-full bg-transparent border-gray-300 border-2 dark:border-none text-gray-400 hover:bg-gray-100/60"
-          >
-            <SearchIcon size={15} />
-          </Button>
+          <SearchInput />
         </div>
       </div>
     </div>

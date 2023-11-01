@@ -1,21 +1,19 @@
 import db from "@/lib/db";
 import { Genre, Webtoon } from "@prisma/client";
 
-type ToonWithGenre = Webtoon & {
-  genres: Genre;
-  episodes: { id: string };
+export type ToonWithGenre = Webtoon & {
+  genre: Genre | null;
+  episode: { id: string }[];
 };
 
 type GetToon = {
-  userId: string;
   title?: string;
-  genreId?: string;
+  genre?: string;
 };
 
 export const getToon = async ({
-  userId,
   title,
-  genreId,
+  genre,
 }: GetToon): Promise<ToonWithGenre[]> => {
   try {
     const toons = await db.webtoon.findMany({
@@ -24,7 +22,7 @@ export const getToon = async ({
         title: {
           contains: title,
         },
-        genreId,
+        genreId: genre,
       },
       include: {
         genre: true,

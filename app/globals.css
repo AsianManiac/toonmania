@@ -48,6 +48,13 @@
     --ring: 142.4 71.8% 29.2%;
   }
 }
+@layer utilities {
+  @variants responsive {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
 
 @layer base {
   * {

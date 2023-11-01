@@ -28,8 +28,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     if (!currentUser) {
       return loginModal.onOpen();
     }
-
-    // Create new Toon
     createToon.onOpen();
   }, [currentUser, loginModal]);
   console.log(currentUser?.id);
