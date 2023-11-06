@@ -7,32 +7,41 @@ export type ToonWithGenre = Webtoon & {
 };
 
 type GetToon = {
-  title?: string;
-  genre?: string;
+  title: string;
+  genre: string;
 };
 
 export const getToon = async ({
   title,
   genre,
-}: GetToon): Promise<ToonWithGenre[]> => {
+}: GetToon): Promise<ToonWithGenre[] | undefined> => {
   try {
+    const cat = await db.genre.findFirst({
+      where: {
+        slug: genre,
+      },
+    });
     const toons = await db.webtoon.findMany({
       where: {
         isPublished: true,
         title: {
-          contains: title,
+          search: title,
         },
-        genreId: genre,
       },
       include: {
-        genre: true,
+        genre: {
+          where: {
+            slug: {
+              search: genre,
+            },
+          },
+        },
         episodes: {
           where: {
             isPublished: true,
           },
           select: {
             id: true,
-            title: true,
           },
         },
       },

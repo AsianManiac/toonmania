@@ -1,0 +1,62 @@
+diff --git a/node_modules/next/dist/esm/server/lib/incremental-cache/index.js b/node_modules/next/dist/esm/server/lib/incremental-cache/index.js
+index 54165bf..65f7840 100644
+--- a/node_modules/next/dist/esm/server/lib/incremental-cache/index.js
++++ b/node_modules/next/dist/esm/server/lib/incremental-cache/index.js
+@@ -311,6 +311,15 @@ export class IncrementalCache {
+     }
+     // populate the incremental cache with new data
+     async set(pathname, data, revalidateSeconds, fetchCache, fetchUrl, fetchIdx) {
++        if (this.dev && !fetchCache) return;
++        // fetchCache has upper limit of 10MB per-entry currently
++        const max_fetch_size = Number(process.env.MAX_FETCH_SIZE) || 10 //gets value set in next.config
++        if (fetchCache && JSON.stringify(data).length > max_fetch_size * 1024 * 1024) {
++            if (this.dev) {
++                throw new Error(`fetch for over ${max_fetch_size}MB of data can not be cached`);
++            }
++            return;
++        }
+         if (process.env.__NEXT_INCREMENTAL_CACHE_IPC_PORT && process.env.__NEXT_INCREMENTAL_CACHE_IPC_KEY && process.env.NEXT_RUNTIME !== "edge") {
+             const invokeIpcMethod = require("../server-ipc/request-utils").invokeIpcMethod;
+             return invokeIpcMethod({
+@@ -322,14 +331,6 @@ export class IncrementalCache {
+                 ]
+             });
+         }
+-        if (this.dev && !fetchCache) return;
+-        // fetchCache has upper limit of 2MB per-entry currently
+-        if (fetchCache && JSON.stringify(data).length > 2 * 1024 * 1024) {
+-            if (this.dev) {
+-                throw new Error(`fetch for over 2MB of data can not be cached`);
+-            }
+-            return;
+-        }
+         pathname = this._getPathname(pathname, fetchCache);
+         try {
+             var _this_cacheHandler;
+diff --git a/node_modules/next/dist/server/lib/incremental-cache/index.js b/node_modules/next/dist/server/lib/incremental-cache/index.js
+index 594cd61..b947f8c 100644
+--- a/node_modules/next/dist/server/lib/incremental-cache/index.js
++++ b/node_modules/next/dist/server/lib/incremental-cache/index.js
+@@ -267,6 +267,7 @@ class IncrementalCache {
+     }
+     // get data from cache if available
+     async get(pathname, fetchCache, revalidate, fetchUrl, fetchIdx) {
++        if (this.dev && !fetchCache) return;
+         var _this_cacheHandler, _cacheData_value, _this_prerenderManifest_routes_toRoute;
+         if (process.env.__NEXT_INCREMENTAL_CACHE_IPC_PORT && process.env.__NEXT_INCREMENTAL_CACHE_IPC_KEY && process.env.NEXT_RUNTIME !== "edge") {
+             const invokeIpcMethod = require("../server-ipc/request-utils").invokeIpcMethod;
+@@ -350,10 +351,11 @@ class IncrementalCache {
+             });
+         }
+         if (this.dev && !fetchCache) return;
+-        // fetchCache has upper limit of 2MB per-entry currently
+-        if (fetchCache && JSON.stringify(data).length > 2 * 1024 * 1024) {
++        // fetchCache has upper limit of 10MB per-entry currently
++        const max_fetch_size = Number(process.env.MAX_FETCH_SIZE) || 10 //gets value set in next.config
++        if (fetchCache && JSON.stringify(data).length > max_fetch_size * 1024 * 1024) {
+             if (this.dev) {
+-                throw new Error(`fetch for over 2MB of data can not be cached`);
++                throw new Error(`fetch for over ${max_fetch_size}MB of data can not be cached`);
+             }
+             return;
+         }

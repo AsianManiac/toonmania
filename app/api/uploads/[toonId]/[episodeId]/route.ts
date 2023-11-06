@@ -1,16 +1,10 @@
 import makeURLFriendly from "@/helpers/makeurl";
 import db from "@/lib/db";
-import {
-  createReadStream,
-  existsSync,
-  promises as fs,
-  mkdirSync,
-  unlink,
-} from "fs";
+import AdmZip from "adm-zip";
+import { existsSync, promises as fs, mkdirSync, unlink } from "fs";
 import { writeFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
-const unzipper = require("unzipper");
 
 export async function POST(
   request: NextRequest,
@@ -56,7 +50,9 @@ export async function POST(
   }
   try {
     await writeFile(dir, buffer);
-    createReadStream(dir).pipe(unzipper.Extract({ path: FOLDER }));
+    const zip = new AdmZip(dir);
+    zip.extractAllTo(FOLDER, true);
+    // createReadStream(dir).pipe(unzipper.Extract({ path: FOLDER }));
   } catch (error) {
     console.error(error);
     return NextResponse.json(
@@ -72,7 +68,7 @@ export async function POST(
         console.log(`${fileName} was deleted`);
       });
       fs.rename(oldName, newName);
-    }, 6000);
+    }, 10000);
   }
 
   // console.log(`open ${name} to see the uploaded file`);

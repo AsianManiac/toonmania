@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -89,6 +89,7 @@ model Webtoon {
   id            String        @id @default(uuid())
   authorId      String?
   title         String
+  slug          String        @unique
   description   String?
   coverImage    String? // URL to the webtoon's cover image
   isPublished   Boolean       @default(false)
@@ -100,6 +101,7 @@ model Webtoon {
   attachments   Attachments[] // Many-to-many relationship with attachments
   Like          Like[]
   episodes      Episode[]
+  titleNo       String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -113,10 +115,11 @@ model Webtoon {
 model Episode {
   id            String        @id @default(uuid())
   title         String
+  slug          String
   description   String?
   episodeNumber String?
   position      Int
-  episodeUrl    String?
+  episodeUrl    String?       @unique
   datePublished DateTime?
   isPublished   Boolean       @default(false)
   isFree        Boolean?      @default(false)

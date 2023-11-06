@@ -36,13 +36,13 @@ export const SearchInput = () => {
 
   const toggleEdit = () => setIsSearching((current) => !current);
   return (
-    <div className="z-20">
+    <div className="z-20 md:hidden">
       {!isSearching && (
         <Button
           onClick={toggleEdit}
           variant={"ghost"}
           size={"icon"}
-          className="mx-1 h-6 w-6 rounded-full bg-transparent border-gray-300 border-2 dark:border-none text-slate-700 hover:bg-gray-100/60 cursor-pointer sticky"
+          className="mx-1 h-6 w-6 rounded-full bg-transparent border-gray-200 border-[1px] dark:border-none text-slate-700 hover:bg-gray-100/60 cursor-pointer sticky"
         >
           <SearchIcon className="h-4 w-5" />
         </Button>

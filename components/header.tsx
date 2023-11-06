@@ -21,12 +21,13 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 import { User } from "@prisma/client";
 import UserMenu from "./user-menu";
 import { SearchInput } from "./inputs/search";
+import { MobileSidebar } from "./moibile-sidebar";
 
 interface HeaderProps {
   currentUser?: User | null;
 }
 
-const header = [
+export const routes = [
   {
     id: 1,
     title: "ORIGINALS",
@@ -81,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
           </div>
           {/* header items */}
           <div className="hidden lg:block">
-            {header.map((title, index) => (
+            {routes.map((title, index) => (
               <Fragment key={title.id}>
                 <Link
                   href={`/${title.url}`}
@@ -103,17 +104,14 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
                 <Menu className="h-8 w-8" />
               </SheetTrigger>
               <SheetContent side={"left"}>
-                <SheetHeader>
-                  <SheetDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </SheetDescription>
-                </SheetHeader>
+                <SheetHeader></SheetHeader>
+                <MobileSidebar />
               </SheetContent>
             </Sheet>
           </Button>
+          <SearchInput />
         </div>
-        <div className="w-auto flex flex-row items-center justify-between">
+        <div className="w-auto md:flex hidden md:flex-row items-center justify-between">
           <span className="flex justify-center items-center hover:text-green-500">
             <BookOpen size={16} className="mt-1 font-semibold" />
             <Link href={`/toon/create`} className="font-semibold text-base ">

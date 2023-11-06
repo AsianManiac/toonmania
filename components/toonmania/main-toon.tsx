@@ -9,25 +9,37 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
-import { HomeToonsProps } from "@/data/home-webtoon";
 import makeURLFriendly from "@/helpers/makeurl";
 import { useParams } from "next/navigation";
 
-const MainToon: React.FC<HomeToonsProps> = ({
-  image,
+interface Props {
+  slug: string;
+  title: string;
+  image: string | null;
+  author: string | null;
+  titleNo: string;
+  genre: string | undefined;
+  likes?: string;
+  icons?: string;
+}
+
+const MainToon: React.FC<Props> = ({
+  slug,
   title,
+  image,
   author,
   genre,
   likes,
+  titleNo,
   icons = "UP",
 }) => {
   return (
     <div className="">
-      <Link href={`list/${makeURLFriendly(genre)}/${makeURLFriendly(title)}`}>
+      <Link href={`list/${makeURLFriendly(genre)}/${slug}?title_no=${titleNo}`}>
         <Card
         // onClick={() => router.push(`${genre}/${makeURLFriendly(title)}/list`)}
         >
-          <CardContent className="relative p-0">
+          <CardContent className="relative p-0 md:h-[200px]">
             {image == null ? (
               <Image
                 src={`/webtoon.png`}
@@ -35,21 +47,23 @@ const MainToon: React.FC<HomeToonsProps> = ({
                 width={25}
                 height={40}
                 alt={title}
-                className="w-full h-[210px]"
+                className="w-full h-[200px]"
               />
             ) : (
               <Image
-                src={image}
+                src={`/webtoon/images/${image}`}
                 objectFit="cover"
                 width="210"
                 height="210"
                 alt={title}
-                className="w-full h-auto"
+                className="w-full h-full"
               />
             )}
             <div className="absolute top-[14px] px-4">
-              <CardTitle className="text-lg font-medium">{title}</CardTitle>
-              <p className="font-semibold text-sm">{author}</p>
+              <CardTitle className="lg:text-lg text-base line-clamp-2 font-medium">
+                {title}
+              </CardTitle>
+              <p className="font-semibold text-xs">{author}</p>
               <p className="text-sm flex items-center">
                 <span>
                   {" "}
@@ -88,6 +102,7 @@ const MainToon: React.FC<HomeToonsProps> = ({
                   <p></p>
                 )}
               </Fragment>
+              <p className={`text-xs ${makeURLFriendly(genre)}`}>{genre}</p>
             </div>
           </CardContent>
         </Card>
@@ -103,8 +118,8 @@ interface ImageProps {
 }
 
 export const WebtoonEpisode = ({ image }: ImageProps) => {
-  const param = useParams();
-  const { name, episodeId } = param;
+  const params = useParams();
+  const { name, episodeId } = params;
   return (
     <div className="m-auto flex flex-col justify-center items-center">
       {image?.map((src: React.Key | null | undefined) => (
@@ -112,7 +127,7 @@ export const WebtoonEpisode = ({ image }: ImageProps) => {
           key={src}
           width={"60%"}
           height={"100%"}
-          className="w-[60vw]"
+          className="md:w-[60vw] w-full px-1"
           src={`/webtoon/originals/${name}/${episodeId}/${src}`}
           alt={`Image `}
           loading="lazy"

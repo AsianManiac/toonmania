@@ -3,11 +3,11 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
-
+  env: {
+    MAX_FETCH_SIZE: 10, //in MB
+  },
   images: {
-    domains: [
-      // "webtoon-phinf.pstatic.net",
-    ],
+    domains: ["webtoon-phinf.pstatic.net", "images.unsplash.com"],
   },
 };
 

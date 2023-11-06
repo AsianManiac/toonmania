@@ -2,26 +2,57 @@ import { getToon } from "@/actions/getToons";
 import ClientOnly from "@/components/client";
 import EmptyState from "@/components/empty-state";
 import GenreToons from "@/components/genre-toons";
-import { UserMenuProps } from "@/components/user-menu";
-import { homeDateToon } from "@/data/home-webtoon";
-import { User } from "@prisma/client";
-import { redirect } from "next/navigation";
-import { useCallback } from "react";
+import Heading from "@/components/heading";
+import db from "@/lib/db";
+import { User, Webtoon } from "@prisma/client";
 
 interface GenrePageProps {
   searchParams: {
     title: string;
     genre: string;
   };
-  currentUser: User;
 }
 
-const PopularPage = async ({ searchParams, currentUser }: GenrePageProps) => {
-  // const toons = await homeDateToon;
-  const userId = "fc035e15-c26a-45b1-b266-779dc10c00ad";
+const PopularPage = async ({ searchParams }: GenrePageProps) => {
+  // const toons = await getToon({
+  //   ...searchParams,
+  // });
 
-  const toon = await getToon({
-    ...searchParams,
+  const cat = await db.genre.findFirst({
+    where: {
+      slug: searchParams.genre,
+    },
+  });
+  const toon = await db.webtoon.findMany({
+    where: {
+      isPublished: true,
+      title: {
+        search: searchParams.title,
+      },
+      genreId: {
+        search: cat?.id,
+      },
+    },
+    include: {
+      genre: {
+        where: {
+          slug: {
+            search: searchParams.genre,
+          },
+        },
+      },
+      episodes: {
+        where: {
+          isPublished: true,
+        },
+        select: {
+          id: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   if (toon?.length === 0) {
@@ -33,7 +64,13 @@ const PopularPage = async ({ searchParams, currentUser }: GenrePageProps) => {
   }
   return (
     <>
-      <GenreToons items={toon} />
+      {!toon ? (
+        <div className="pt-14">
+          <Heading title="No toons found" center />
+        </div>
+      ) : (
+        <GenreToons items={toon} />
+      )}
     </>
   );
 };

@@ -1,4 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
+import { slugify } from "@/helpers/makeurl";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
@@ -11,6 +12,7 @@ export async function POST(
 
     const userId = user?.id;
     const { title } = await req.json();
+    const titleUrl = slugify(title);
 
     if (!userId) {
       return new NextResponse("Unauthorised", { status: 401 });
@@ -41,6 +43,7 @@ export async function POST(
     const episode = await db.episode.create({
       data: {
         title,
+        slug: titleUrl,
         webtoonId: params.toonId,
         position: newPosition,
       },

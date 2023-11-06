@@ -8,18 +8,36 @@ import { ChevronRight, EyeIcon, Star, UserCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { title } from "process";
+import { Episodes } from "./_components/Episodes";
+import db from "@/lib/db";
+import { redirect } from "next/navigation";
+interface IParams {
+  name: string;
+  toonId: string;
+}
+const ToonDetailsItem = async ({ params }: { params: IParams }) => {
+  const toonAndEpisodes = await db.webtoon.findFirst({
+    where: {
+      slug: params.toonId,
+    },
+    include: {
+      episodes: {
+        where: {
+          isPublished: true,
+        },
+        orderBy: {
+          position: "desc",
+        },
+      },
+    },
+  });
 
-const ToonDetailsItem = () => {
+  if (!toonAndEpisodes) {
+    redirect("/genres");
+  }
   const toons = comcom;
   return (
     <div className="flex flex-col">
-      <div
-        style={{
-          backgroundImage: `url('/home_bg011.jpg')`,
-          backgroundSize: "cover",
-        }}
-        className="hidden lg:block"
-      ></div>
       <div className="z-20">
         <Container>
           <div className="relative h-[50vh] lg:h-[30vh]">
@@ -50,60 +68,7 @@ const ToonDetailsItem = () => {
                   </p>
                 </div>
                 {/* Episodes */}
-                <ul className="flex flex-col-reverse">
-                  {toons.ONGOING.map((category) => (
-                    <div key={category.day}>
-                      {category.webtoons.slice(0, 1).flatMap((toon) => (
-                        <p>
-                          <span>{toon.name}</span>
-                          {toon.articles!.slice(0, 2).flatMap((article) => (
-                            <p>
-                              {article.episodes.map((episode) => (
-                                <>
-                                  <p>{episode.episode}</p>
-                                  <p>{episode.episode_number}</p>
-                                  <p>{episode.date}</p>
-                                  <p>{episode.likes}</p>
-                                </>
-                              ))}
-                            </p>
-                          ))}
-                        </p>
-                      ))}
-                    </div>
-                  ))}
-                  {homeDateToon.slice(35, 45).map((item, index) => (
-                    <Link href={`/list/viewer/${item.genre}/Morgana_and_Oz/04`}>
-                      <li className="flex flex-1 items-center justify-between border-b-[1px] border-[#f5f5f5] cursor-pointer hover:bg-[#fbfbfb]">
-                        <div className="flex flex-row items-center space-x-4">
-                          <span>
-                            <Image
-                              src={item.image}
-                              alt={item.title}
-                              height={80}
-                              width={65}
-                            />
-                          </span>
-                          <span className="text-start">
-                            <span>{item.title}</span>
-                          </span>
-                        </div>
-
-                        <div className="flex flex-row justify-between">
-                          <div className="text-start text-sm text-[#c4c4c4] font-normal px-2">
-                            <span>{item.author}</span>
-                          </div>
-                          <div className="text-start text-sm text-[#c4c4c4] font-normal px-2">
-                            <span>{item.likes}</span>
-                          </div>
-                          <div className="text-start text-base  font-normal px-2">
-                            <span>#{index}</span>
-                          </div>
-                        </div>
-                      </li>
-                    </Link>
-                  ))}
-                </ul>
+                <Episodes toon={toonAndEpisodes} />
               </div>
             </div>
             {/* Details Area */}
@@ -177,7 +142,7 @@ const ToonDetailsItem = () => {
             {homeDateToon.slice(13, 16).map((item, index) => (
               <li className="flex flex-1 items-center justify-between  cursor-pointer bg-white">
                 <Link
-                  href={`/list/${makeURLFriendly(item.genre)}/${makeURLFriendly(
+                  href={`/list/${makeURLFriendly("drama")}/${makeURLFriendly(
                     item.title
                   )}`}
                 >

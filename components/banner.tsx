@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { AlertTriangle, CheckCircleIcon } from "lucide-react";
+import { BiError } from "react-icons/bi";
 
 const bannerVariants = cva(
   "boder text-center p-4 text-sm flex items-center w-full",
@@ -8,6 +9,7 @@ const bannerVariants = cva(
     variants: {
       variant: {
         warning: "bg-yellow-200/80 border-yellow-30 text-primary",
+        danger: "bg-red-200/80 border-yellow-30 text-danger",
         success: "bg-emerald-700 border-emerald-800 text-secondary",
       },
     },
@@ -19,6 +21,7 @@ const bannerVariants = cva(
 
 const iconMap = {
   warning: AlertTriangle,
+  danger: BiError,
   success: CheckCircleIcon,
 };
 

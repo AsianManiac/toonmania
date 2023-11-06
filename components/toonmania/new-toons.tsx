@@ -1,72 +1,41 @@
-'use client'
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
-
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-import { homeDateToon } from "@/data/home-webtoon";
+import { RapidToonProps } from "@/types";
 import Datetoons from "./date-toons";
-import Image from "next/image";
+import { fetchToon } from "@/helpers/FetchToons";
+import { toons } from "@/data/toons";
+import { homeDateToon } from "@/data/home-webtoon";
 
-const slide = [
-    {
-        slider: "/hero-slider/6Our_Walk_Home.png",
-    },
-    {
-        slider: "/hero-slider/4_GIF_SchoolBusGraveYard_091123_PC.gif",
-    },
-    {
-        slider: "/hero-slider/6Retired-Demon-King_Banner_Launch_A_Desktop.png",
-    },
-]
+const NewToons = async () => {
+  // const allToons = await fetchToon();
+  // const titleList: RapidToonProps[] =
+  //   allToons.message?.result?.titleList.titles.slice(0, 3);
 
-const NewToons = () => {
-    return ( 
-        <div className="w-full border-b-[1px] border-gray-300/70 pb-6">
-            <div className="flex justify-center flex-col space-x-2 items-center py-7">
-                <div>
-                    <p className="font-semibold text-xl pb-8">New TOONS</p>
-                </div>
-                <Swiper
-                    effect="coverflow"
-                    grabCursor={true}
-                    centeredSlides={true}
-                    loop={true}
-                    slidesPerView={ 'auto' }
-                >
-                    {slide.map((slide, i) => (
-                        <SwiperSlide
-                            key={i}
-                        >
-                            <Image
-                                src={slide.slider}
-                                alt="slide"
-                                fill
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-                <div className="grid lg:grid-cols-5 grid-cols-3 gap-2">
-                    {homeDateToon.slice(51, 56).map((toons, index) => (
-                        <Datetoons
-                            key={index}
-                            image={toons.image}
-                            title={toons.title}
-                            genre={toons.genre}
-                            author={toons.author}
-                            likes={toons.likes}
-                            longSummary={toons.longSummary}
-                            shortSummary={toons.shortSummary}
-                        />
-                    ))}
-                </div>
-            </div>
+  // const isToonEmpty =
+  //   !Array.isArray(titleList) || titleList.length < 1 || !titleList;
+
+  // console.log(titleList);
+  return (
+    <div className="w-full border-b-[1px] border-gray-300/70 pb-6">
+      <div className="flex justify-center flex-col space-x-2 items-center py-7">
+        <div>
+          <p className="font-semibold text-xl pb-8">New TOONS</p>
         </div>
-     );
-}
- 
+        <div className="grid lg:grid-cols-5 grid-cols-3 gap-2">
+          {homeDateToon.slice(0, 10).map((item) => (
+            <Datetoons
+              key={item.author}
+              image={item.image}
+              title={item.title}
+              genre={item.genre}
+              author={item.author}
+              likes={item.likes}
+              longSummary={item.longSummary}
+              shortSummary={item.shortSummary}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default NewToons;

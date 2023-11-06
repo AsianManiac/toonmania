@@ -1,4 +1,4 @@
-export default function makeURLFriendly(url: string): string {
+export default function makeURLFriendly(url: string | undefined): string {
   if (typeof url !== "string") {
     throw new Error("Input url must be a string");
   }
@@ -6,6 +6,16 @@ export default function makeURLFriendly(url: string): string {
   url = url.trim();
 
   return url.replace(/\s+/g, "-").toLowerCase();
+}
+export function toonEpisode(url: string) {
+  const epis = url
+    .replace("-", "_")
+    .replace("-", "_")
+    .replace("-", "_")
+    .replace("-", "_")
+    .replace("-", "_")
+    .replace("-", "_");
+  return epis;
 }
 
 export function slugify(text: string): string {
