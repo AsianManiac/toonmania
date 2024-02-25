@@ -13,9 +13,8 @@ export const Episodes = async ({ toon }: EpisodeProps) => {
       <div>{toon.title}</div>
       <div>
         {toon.episodes.map((episode) => (
-          <ul className="flex flex-col-reverse">
+          <ul className="flex flex-col-reverse" key={episode.id}>
             <EpisodeList
-              key={episode.id}
               id={episode.id}
               label={episode.title}
               toonId={toon.id}

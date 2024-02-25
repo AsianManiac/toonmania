@@ -140,7 +140,10 @@ const ToonDetailsItem = async ({ params }: { params: IParams }) => {
           {/* Realted toons */}
           <div className="flex flex-row mt-16 mb-20">
             {homeDateToon.slice(13, 16).map((item, index) => (
-              <li className="flex flex-1 items-center justify-between  cursor-pointer bg-white">
+              <li
+                key={index}
+                className="flex flex-1 items-center justify-between  cursor-pointer bg-white"
+              >
                 <Link
                   href={`/list/${makeURLFriendly("drama")}/${makeURLFriendly(
                     item.title

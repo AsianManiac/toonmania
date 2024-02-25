@@ -115,7 +115,7 @@ export const EpisodeListForm = ({
           />
           <div className="text-sm text-muted-foreground mt-4">
             Episodes can be uploaded only as{" "}
-            <strong className="italic">"zip"</strong> files
+            <strong className="italic">&quot;zip&quot;</strong> files
           </div>
         </>
       )}
