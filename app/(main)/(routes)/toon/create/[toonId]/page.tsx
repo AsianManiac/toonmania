@@ -127,7 +127,7 @@ const ToonId = async ({ params }: { params: { toonId: string } }) => {
                 <h2 className="text-xl flex items-center">
                   Upload all episodes at once{" "}
                   <span className="text-base italic capitalize">
-                    "Coming Soon"
+                    &quot;Coming Soon&quot;
                   </span>
                   <Pause className="ml-2 animate-pulse h-4 w-4 text-sky-700" />
                 </h2>

@@ -39,7 +39,7 @@ const MainToon: React.FC<Props> = ({
         <Card
         // onClick={() => router.push(`${genre}/${makeURLFriendly(title)}/list`)}
         >
-          <CardContent className="relative p-0 md:h-[200px]">
+          <CardContent className="relative p-0 md:h-[200px] md:w-[200px]">
             {image == null ? (
               <Image
                 src={`/webtoon.png`}

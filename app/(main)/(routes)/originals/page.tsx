@@ -1,12 +1,13 @@
-import React from "react";
 import { Check } from "lucide-react";
+import React from "react";
 
 import CategoryTabs from "@/components/category-tabs";
 import Container from "@/components/container";
-import DayToon, { DayOnToon } from "@/components/toonmania/DayToon";
+import { DayOnToon } from "@/components/toonmania/DayToon";
 
-import { Webtoon, comcom } from "@/data/comcom";
 import HomeDateTabs from "@/components/tabs/home-date-tabs";
+import { Webtoon, comcom } from "@/data/comcom";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 interface WebtoonInfoProps {
   webtoon: Webtoon;

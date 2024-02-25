@@ -13,6 +13,7 @@ const OriginalsPage = () => {
 
       <HomeDateTabs />
 
+      {/* NewToons */}
       <NewToons />
       {/* Home Genre */}
       <HomeGenre />
