@@ -18,7 +18,6 @@ export default function DayToon({ image, name, author, genre }: Webtoon) {
             {image == null ? (
               <Image
                 src={`/webtoon.png`}
-                objectFit="cover"
                 width={25}
                 height={40}
                 alt={name}
@@ -27,7 +26,6 @@ export default function DayToon({ image, name, author, genre }: Webtoon) {
             ) : (
               <Image
                 src={image}
-                objectFit="cover"
                 width="210"
                 height="210"
                 alt={name}
@@ -62,7 +60,6 @@ export function DayOnToon({ image, name, author, genre }: Webtoon) {
             {image == null ? (
               <Image
                 src={`/webtoon.png`}
-                objectFit="cover"
                 width={25}
                 height={40}
                 alt={name}
@@ -71,7 +68,6 @@ export function DayOnToon({ image, name, author, genre }: Webtoon) {
             ) : (
               <Image
                 src={image}
-                objectFit="cover"
                 width="210"
                 height="210"
                 alt={name}

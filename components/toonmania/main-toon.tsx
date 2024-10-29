@@ -34,80 +34,76 @@ const MainToon: React.FC<Props> = ({
   icons = "UP",
 }) => {
   return (
-    <div className="">
-      <Link href={`list/${makeURLFriendly(genre)}/${slug}?title_no=${titleNo}`}>
-        <Card
-        // onClick={() => router.push(`${genre}/${makeURLFriendly(title)}/list`)}
-        >
-          <CardContent className="relative p-0 md:h-[200px] md:w-[200px]">
-            {image == null ? (
-              <Image
-                src={`/webtoon.png`}
-                objectFit="cover"
-                width={25}
-                height={40}
-                alt={title}
-                className="w-full h-[200px]"
-              />
-            ) : (
-              <Image
-                src={`/webtoon/images/${image}`}
-                objectFit="cover"
-                width="210"
-                height="210"
-                alt={title}
-                className="w-full h-full"
-              />
-            )}
-            <div className="absolute top-[14px] px-4">
-              <CardTitle className="lg:text-lg text-base line-clamp-2 font-medium">
-                {title}
-              </CardTitle>
-              <p className="font-semibold text-xs">{author}</p>
-              <p className="text-sm flex items-center">
-                <span>
+    <a href={`list/${makeURLFriendly(genre)}/${slug}?title_no=${titleNo}`}>
+      <Card
+      // onClick={() => router.push(`${genre}/${makeURLFriendly(title)}/list`)}
+      >
+        <CardContent className="relative p-0 md:h-[200px]">
+          {image == null ? (
+            <Image
+              src={`/webtoon.png`}
+              width={25}
+              height={40}
+              alt={title}
+              className="w-full h-[200px]"
+            />
+          ) : (
+            <Image
+              src={`/webtoon/images/${image}`}
+              width="210"
+              height="210"
+              alt={title}
+              className="w-full h-full"
+            />
+          )}
+          <div className="absolute top-[14px] px-4">
+            <CardTitle className="lg:text-lg text-base line-clamp-2 font-medium">
+              {title}
+            </CardTitle>
+            <p className="font-semibold text-xs">{author}</p>
+            <p className="text-sm flex items-center">
+              <span>
+                {" "}
+                <HeartIcon
+                  size={"16"}
+                  fill="green"
+                  className="text-green-700"
+                />
+              </span>
+              <span className="text-green-700 font-normal"> {likes} </span>
+            </p>
+            <Fragment>
+              {icons === "UP" ? (
+                <Button
+                  size={"icon"}
+                  className="rounded-full text-[10px] h-7 w-7 text-white/90 bg-green-500"
+                >
+                  {icons}
+                </Button>
+              ) : icons === "NEW" ? (
+                <Button
+                  size={"icon"}
+                  className="rounded-full h-7 w-7 text-green-500 text-[10px]"
+                >
+                  {icons}
+                </Button>
+              ) : icons === "HIATUS" ? (
+                <Button
+                  size={"icon"}
+                  className="rounded-full text-green-500 bg-black/60 text-[10px] h-7 w-7"
+                >
                   {" "}
-                  <HeartIcon
-                    size={"16"}
-                    fill="green"
-                    className="text-green-700"
-                  />
-                </span>
-                <span className="text-green-700 font-normal"> {likes} </span>
-              </p>
-              <Fragment>
-                {icons === "UP" ? (
-                  <Button
-                    size={"icon"}
-                    className="rounded-full text-[10px] h-7 w-7 text-white/90 bg-green-500"
-                  >
-                    {icons}
-                  </Button>
-                ) : icons === "NEW" ? (
-                  <Button
-                    size={"icon"}
-                    className="rounded-full h-7 w-7 text-green-500 text-[10px]"
-                  >
-                    {icons}
-                  </Button>
-                ) : icons === "HIATUS" ? (
-                  <Button
-                    size={"icon"}
-                    className="rounded-full text-green-500 bg-black/60 text-[10px] h-7 w-7"
-                  >
-                    {" "}
-                    <PauseIcon />{" "}
-                  </Button>
-                ) : (
-                  <p></p>
-                )}
-              </Fragment>
-              <p className={`text-xs ${makeURLFriendly(genre)}`}>{genre}</p>
-            </div>
-          </CardContent>
-        </Card>
-      </Link>
-    </div>
+                  <PauseIcon />{" "}
+                </Button>
+              ) : (
+                <p></p>
+              )}
+            </Fragment>
+            <p className={`text-xs ${makeURLFriendly(genre)}`}>{genre}</p>
+          </div>
+        </CardContent>
+      </Card>
+    </a>
   );
 };
 
@@ -119,7 +115,7 @@ interface ImageProps {
 
 export const WebtoonEpisode = ({ image }: ImageProps) => {
   const params = useParams();
-  const { name, episodeId } = params;
+  const { name, episodeId }: any = params;
   return (
     <div className="m-auto flex flex-col justify-center items-center">
       {image?.map((src: React.Key | null | undefined) => (

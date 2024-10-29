@@ -89,7 +89,7 @@ const ToonGenre = ({ items }: ToonGenreProps) => {
           </Container>
         </div>
       )}
-      <Container>
+      <Container className="px-2">
         <div className="flex pt-5 justify-between py-2 mt-10 flex-row items-center">
           {filteredToons?.map((item, index) => (
             <h2

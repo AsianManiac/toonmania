@@ -48,7 +48,6 @@ export const EpisodeList = ({
             src={`/webtoon/images/${episodeImage}`}
             alt={label}
             className="object-cover h-[80px] w-[65px]"
-            objectFit="cover"
             height={80}
             width={65}
           />

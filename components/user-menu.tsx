@@ -15,9 +15,10 @@ import { Button } from "@/components/ui/button";
 import { User2Icon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import useCreateToonModal from "@/hooks/usecreateToonModal";
+import { SafeUser } from "@/types";
 
 export interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser: SafeUser;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
@@ -29,7 +30,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       return loginModal.onOpen();
     }
     createToon.onOpen();
-  }, [currentUser, loginModal]);
+  }, [currentUser, loginModal, createToon]);
   console.log(currentUser?.id);
   return (
     <>

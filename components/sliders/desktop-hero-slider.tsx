@@ -50,7 +50,6 @@ const DesktopHeroSlider = () => {
               src={`/banner/4DesktopMiniBanner_US+28129.png`}
               width={120}
               height={100}
-              objectFit="fit"
               className="w-[250px] -ml-9"
             />
           </div>
@@ -60,7 +59,6 @@ const DesktopHeroSlider = () => {
               src={`/banner/5SmallBanner_B_us.png`}
               width={100}
               height={120}
-              objectFit="fit"
               className="w-[230px] -ml-3"
             />
           </div>

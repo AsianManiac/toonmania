@@ -67,7 +67,6 @@ const MainLayout = async ({
         </Container>
         <Image
           alt="Cover Image"
-          objectFit="fit"
           fill
           src={`/home_bg011.jpg`}
           className="object-fill opacity-0 hidden md:block"

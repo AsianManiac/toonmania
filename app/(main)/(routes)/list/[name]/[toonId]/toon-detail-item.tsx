@@ -45,12 +45,7 @@ const ToonDetailsItem = async ({ params }: { params: IParams }) => {
               Clososoovsjbvbdsavask vajlkfbvnajb anvajva jvbaofvank jab va
               vlabnfv afjab
             </p>
-            <Image
-              alt="Cover Image"
-              objectFit="fit"
-              fill
-              src={`/home_bg011.jpg`}
-            />
+            <Image alt="Cover Image" fill src={`/home_bg011.jpg`} />
           </div>
           <div className="flex flex-col md:flex-row">
             {/* Episode Area */}
@@ -154,7 +149,6 @@ const ToonDetailsItem = async ({ params }: { params: IParams }) => {
                       <Image
                         src={item.image}
                         alt={item.title}
-                        objectFit="cover"
                         height={100}
                         width={100}
                         loading={"lazy"}

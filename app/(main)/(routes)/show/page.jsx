@@ -37,7 +37,7 @@ const WebtoonEpisode = ({ imageFiles }) => {
     <div className="m-auto flex flex-col justify-center items-center">
       <p className="m-auto h-8"> Tay JunJo</p>
       {imageFiles?.map((image) => (
-        <img
+        <Image
           key={image}
           width={"60%"}
           height={"100%"}

@@ -84,13 +84,13 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
           <div className="hidden lg:block">
             {routes.map((title, index) => (
               <Fragment key={title.id}>
-                <Link
+                <a
                   href={`/${title.url}`}
                   key={index}
                   className="px-3 font-medium text-sm hover:text-green-400"
                 >
                   {title.title}
-                </Link>
+                </a>
               </Fragment>
             ))}
           </div>

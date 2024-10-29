@@ -37,7 +37,7 @@ const GenreList = ({ label, value, selected }: GenreListprops) => {
     );
 
     router.push(url);
-  }, [label, params, router]);
+  }, [params, router, value]);
 
   return (
     <div

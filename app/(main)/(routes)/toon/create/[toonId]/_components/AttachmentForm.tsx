@@ -36,7 +36,7 @@ export const AttachmentForm = ({
       toggleEdit();
       router.refresh();
     } catch (error: any) {
-      toast.error("Somting went wrong", error);
+      toast.error("Somthing went wrong", error);
     }
   };
 

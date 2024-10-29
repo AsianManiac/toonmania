@@ -149,7 +149,6 @@ const ToonDetails = async ({ params }: { params: IParams }) => {
                         <Image
                           src={item.image}
                           alt={item.title}
-                          objectFit="cover"
                           height={100}
                           width={100}
                           loading={"lazy"}

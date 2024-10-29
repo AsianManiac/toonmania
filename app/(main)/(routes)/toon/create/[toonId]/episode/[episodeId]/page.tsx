@@ -36,6 +36,7 @@ const EpisodeId = async ({
       },
     },
   });
+
   const toon = await db.webtoon.findUnique({
     where: {
       id: params.toonId,
@@ -152,7 +153,7 @@ const EpisodeId = async ({
               </div>
               <EpisodeListForm
                 initialData={episode}
-                toon={toon}
+                toon={toon!}
                 toonId={params.toonId}
                 episodeId={params.episodeId}
               />

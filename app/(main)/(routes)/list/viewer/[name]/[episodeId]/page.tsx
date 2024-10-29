@@ -1,14 +1,11 @@
 import { getEpisode } from "@/actions/getEpisode";
-import { getToon } from "@/actions/getToons";
 import Banner from "@/components/banner";
 import { WebtoonEpisode } from "@/components/toonmania/main-toon";
 import sortedArray from "@/helpers/sortedArray";
-import db from "@/lib/db";
 import fs from "fs";
-import { Music } from "lucide-react";
 import { redirect } from "next/navigation";
 import path from "path";
-import { Player } from "./_components/Player";
+import { BiPlayCircle } from "react-icons/bi";
 
 const ReaderPage = async ({
   params,
@@ -26,7 +23,7 @@ const ReaderPage = async ({
   const imageFiles = fs.readdirSync(webtoonFolder);
   // imageFiles.sort((a, b) => b - a)
   imageFiles.sort(sortedArray);
-  console.log(imageFiles);
+  // console.log(imageFiles);
 
   const { episode, toons, attachments, nextEpisode } = await getEpisode({
     toon: params.name,
@@ -38,6 +35,7 @@ const ReaderPage = async ({
   }
 
   const isLocked = !episode?.isFree;
+  console.log(attachments);
 
   return (
     <>
@@ -53,7 +51,14 @@ const ReaderPage = async ({
             <div className="absolute top-12 right-12">
               {attachments.map((attach) => (
                 <>
-                  <Player playing={true} paused={true} />
+                  <BiPlayCircle fill="green" className="w-5 h-5" />
+                  <audio
+                    src={`/webtoon/attachments/soundtracks/${attach.url}`}
+                    autoPlay
+                    muted={false}
+                  >
+                    Play now
+                  </audio>
                 </>
               ))}
             </div>

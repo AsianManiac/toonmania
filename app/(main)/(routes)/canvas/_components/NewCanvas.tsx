@@ -9,7 +9,6 @@ const NewCanvas = () => {
           <div className="relative">
             <Image
               className="object-cover h-full w-full"
-              objectFit="cover"
               alt="webtoon canvas new"
               fill
               src={`/webtoon/canvas/webtoon_canvas_news_20.png`}

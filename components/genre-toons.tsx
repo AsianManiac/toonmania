@@ -22,8 +22,8 @@ interface GenreToonsProps {
 
 const GenreToons = ({ items }: GenreToonsProps) => {
   return (
-    <Container>
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-20">
+    <Container className="px-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1 mb-10">
         {items?.map((item) => (
           <MainToon
             key={item.id}
